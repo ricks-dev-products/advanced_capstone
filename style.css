@@ -1,0 +1,263 @@
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background: linear-gradient(-45deg, #f0f2f5, #a8c0d5, #f0f2f5, #b0c4de);
+    background-size: 400% 400%;
+    animation: moveGradient 18s ease infinite;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('assets/images/shield-background.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    z-index: -1;
+}
+
+/* NEW: Styles for the header container to align name and toggle */
+.header-container {
+    display: flex;
+    justify-content: center; /* Changed from space-between to center */
+    align-items: center; /* Vertically centers items */
+    margin-bottom: 1.5em; /* Space below the header */
+    padding: 0; /* No padding or border for a transparent container */
+    background-color: transparent; /* Ensure transparency */
+    /* Add this to allow items to wrap on smaller screens if necessary */
+    flex-wrap: wrap;
+    /* Add some padding for better spacing around items within the centered container */
+    padding: 10px 0;
+}
+
+
+/* Adjust h1 to be left-aligned within the header-container */
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    text-align: center; /* Changed to center for overall centering effect */
+    margin: 0; /* Remove default margin that might cause alignment issues */
+    /* Add some margin to separate h1 from the toggle when centered */
+    margin-right: 20px; /* Space between h1 and toggle */
+}
+
+
+/* NEW: Styles for the top-right theme toggle (adjust margin as it's now in header-container) */
+.theme-toggle-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0; /* Remove margin-bottom as it's handled by header-container */
+}
+
+.theme-toggle-label {
+    margin-right: 10px; /* Space between text and switch */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #34495e; /* A muted color for the label */
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 0.5em;
+    font-size: 1.3em;
+    font-weight: 300;
+    color: #34495e;
+}
+
+hr {
+    border: none;
+    height: 2px;
+    background-color: #7BADD3;
+    margin: 2.5em 0;
+}
+
+.intro-paragraph {
+    padding: 1.5em;
+    background-color: #ffffff;
+    border-left: 5px solid #7BADD3;
+    margin-bottom: 2.5em;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 5px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    display: block;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+    min-width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(44, 62, 80, 0.15);
+}
+
+.info-card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #2980b9;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.info-card ul {
+    padding-left: 20px;
+    margin-top: 15px;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.footer-links {
+    text-align: center;
+    padding: 1.5em;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 2em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.footer-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #2980b9;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.footer-links a:hover {
+    color: #1c587f;
+}
+
+/* =================================================== */
+/* ============== DARK MODE STYLES START =============== */
+/* =================================================== */
+
+/* --- Styles for the Toggle Switch --- */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+.theme-switch input {
+    display:none;
+}
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+input:checked + .slider {
+    background-color: #2980b9; /* Blue color when on */
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* --- Main Dark Mode Color Overrides --- */
+body.dark-mode {
+    background: linear-gradient(-45deg, #0a192f, #1e3a5f, #0a192f, #112240);
+    background-size: 400% 400%;
+    animation: moveGradient 18s ease infinite;
+    color: #a8b2d1;
+}
+
+body.dark-mode::before {
+    opacity: 0.05;
+    mix-blend-mode: screen;
+}
+
+/* Dark mode style for the new label */
+body.dark-mode .theme-toggle-label {
+    color: #a8b2d1;
+}
+
+body.dark-mode h1 {
+    color: #ccd6f6;
+}
+body.dark-mode h2 {
+    color: #a8b2d1;
+}
+
+body.dark-mode .intro-paragraph,
+body.dark-mode .info-card,
+body.dark-mode .footer-links {
+    background-color: #112240;
+    border: 1px solid #233554;
+}
+
+body.dark-mode .info-card h3,
+body.dark-mode .footer-links a {
+    color: #64ffda;
+}
+body.dark-mode .footer-links a:hover {
+    color: #ffffff;
+}
+
+body.dark-mode .info-card h3 {
+    border-bottom: 2px solid #233554;
+}
+body.dark-mode hr {
+    background-color: #233554;
+}

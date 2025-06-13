@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Flame Background</title>
+    <!-- Tailwind CSS CDN for basic styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to the separate CSS file -->
+    <link rel="stylesheet" href="c_style.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="../index.html">Landing Page</a>
+        <a href="./a_Skills.html">Skills</a>
+        <a href="./b_Services.html">Services</a>
+    </nav>
+
+    <div class="flame-container" id="flameContainer"></div>
+
+    <div class="content">
+        <h1>Click To Submit An Idea</h1>
+        <p>Got a brilliant project idea that needs a fiery kickstart? Click the button below to share your vision with us!</p>
+        <button id="openFormBtn" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+            Submit Your Idea
+        </button>
+    </div>
+
+    <!-- The Pop-up Form -->
+    <div id="ideaFormPopup" class="form-popup">
+        <div class="form-content">
+            <span class="close-button" id="closeFormBtn">&times;</span>
+            <h2>Submit Your Project Idea</h2>
+            <form id="ideaForm">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Your Phone (Optional):</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="projectWhat">What is the project?</label>
+                    <textarea id="projectWhat" name="projectWhat" rows="3" placeholder="Describe your project here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="whoBenefits">Who benefits as the user of this project?</label>
+                    <textarea id="whoBenefits" name="whoBenefits" rows="3" placeholder="E.g., small businesses, students, artists..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectAllows">What will it allow someone to do?</label>
+                    <textarea id="projectAllows" name="projectAllows" rows="3" placeholder="Explain the user experience and functionalities..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="whyNeededBenefits">Why is this project needed and what benefits does it add?</label>
+                    <textarea id="whyNeededBenefits" name="whyNeededBenefits" rows="3" placeholder="Describe the problem it solves and its unique advantages..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mustHave">Must-Have Requirements:</label>
+                    <textarea id="mustHave" name="mustHave" rows="3" placeholder="Essential features without which the project is unusable."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="shouldHave">Should-Have Requirements:</label>
+                    <textarea id="shouldHave" name="shouldHave" rows="3" placeholder="Important features that add significant value."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="couldHave">Could-Have Requirements:</label>
+                    <textarea id="couldHave" name="couldHave" rows="3" placeholder="Desirable features that improve the user experience."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="wouldHave">Would-Have (Wishlist) Requirements:</label>
+                    <textarea id="wouldHave" name="wouldHave" rows="3" placeholder="Features for future consideration, if resources allow."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="wontHave">Won't-Have Requirements:</label>
+                    <textarea id="wontHave" name="wontHave" rows="3" placeholder="Features explicitly excluded from the scope."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" id="formCancelBtn">Cancel</button>
+                    <button type="submit" class="submit-btn">Submit Idea</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Message Box -->
+    <div id="messageBox" class="message-box">
+        <p id="messageText"></p>
+        <button id="messageBoxCloseBtn">OK</button>
+    </div>
+
+    <script>
+        const flameContainer = document.getElementById('flameContainer');
+        const numParticles = 100;
+        const minSize = 40;
+        const maxSize = 120;
+        const minDuration = 3;
+        const maxDuration = 7;
+
+        function createFlameParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('flame-particle');
+
+            const size = Math.random() * (maxSize - minSize) + minSize;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size * 1.8}px`;
+
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.bottom = `0px`;
+
+            const duration = Math.random() * (maxDuration - minDuration) + minDuration;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${Math.random() * (maxDuration / 2)}s`;
+
+            const driftAmount = (Math.random() - 0.5) * 100;
+            particle.style.setProperty('--flame-drift', `${driftAmount}px`);
+
+            flameContainer.appendChild(particle);
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+                createFlameParticle();
+            });
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            createFlameParticle();
+        }
+
+        // JavaScript for the Form Pop-up and Message Box
+        const openFormBtn = document.getElementById('openFormBtn');
+        const ideaFormPopup = document.getElementById('ideaFormPopup');
+        const closeFormBtn = document.getElementById('closeFormBtn');
+        const formCancelBtn = document.getElementById('formCancelBtn');
+        const ideaForm = document.getElementById('ideaForm');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const messageBoxCloseBtn = document.getElementById('messageBoxCloseBtn');
+
+        function showForm() {
+            ideaFormPopup.style.display = 'flex';
+        }
+
+        function hideForm() {
+            ideaFormPopup.style.display = 'none';
+            ideaForm.reset();
+        }
+
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+        }
+
+        function hideMessageBox() {
+            messageBox.style.display = 'none';
+        }
+
+        openFormBtn.addEventListener('click', showForm);
+        closeFormBtn.addEventListener('click', hideForm);
+        formCancelBtn.addEventListener('click', hideForm);
+        messageBoxCloseBtn.addEventListener('click', hideMessageBox);
+
+        ideaFormPopup.addEventListener('click', (event) => {
+            if (event.target === ideaFormPopup) {
+                hideForm();
+            }
+        });
+
+        ideaForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // Collect all form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                projectWhat: document.getElementById('projectWhat').value,
+                whoBenefits: document.getElementById('whoBenefits').value,
+                projectAllows: document.getElementById('projectAllows').value,
+                whyNeededBenefits: document.getElementById('whyNeededBenefits').value,
+                mustHave: document.getElementById('mustHave').value,
+                shouldHave: document.getElementById('shouldHave').value,
+                couldHave: document.getElementById('couldHave').value,
+                wouldHave: document.getElementById('wouldHave').value,
+                wontHave: document.getElementById('wontHave').value,
+            };
+
+            console.log('Form Submitted!', formData); // Log the data to console
+
+            // Construct the email body
+            let emailBody = `New Project Idea Submission:\n\n`;
+            emailBody += `Your Name: ${formData.name}\n`;
+            emailBody += `Your Email: ${formData.email}\n`;
+            if (formData.phone) {
+                emailBody += `Your Phone: ${formData.phone}\n`;
+            }
+            emailBody += `\n--- Project Details ---\n`;
+            emailBody += `What is the project?: ${formData.projectWhat}\n\n`;
+            emailBody += `Who benefits as the user?: ${formData.whoBenefits}\n\n`;
+            emailBody += `What it will allow someone to do: ${formData.projectAllows}\n\n`;
+            emailBody += `Why it's needed & benefits: ${formData.whyNeededBenefits}\n\n`;
+            emailBody += `--- Requirements ---\n`;
+            emailBody += `Must-Have: ${formData.mustHave}\n\n`;
+            emailBody += `Should-Have: ${formData.shouldHave}\n\n`;
+            emailBody += `Could-Have: ${formData.couldHave}\n\n`;
+            emailBody += `Would-Have (Wishlist): ${formData.wouldHave}\n\n`;
+            emailBody += `Won't-Have: ${formData.wontHave}\n`;
+
+            // Create mailto link
+            const mailtoLink = `mailto:rmayfild@gmail.com?subject=${encodeURIComponent('New Project Idea Submission')}&body=${encodeURIComponent(emailBody)}`;
+
+            // Open email client
+            window.open(mailtoLink, '_blank');
+
+            // Show custom success message
+            showMessageBox('Thank you for your idea! Your email client should open with the pre-filled submission. Please send it from there.');
+
+            hideForm(); // Hide the form after submission
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+/* Import Inter font for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Define CSS Variables for theming */
+:root {
+    --primary-bg-color: #B8860B; /* Casual Gold (right 2/3) */
+    --secondary-bg-color: #4682B4; /* Steel Blue (left 1/3) */
+    --text-color: #333;
+    --heading-color: #2c3e50;
+    --heading-color-light: #34495e;
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --border-color: #ccc;
+    --carousel-indicator-active: #FFD700;
+    --carousel-indicator-inactive: #4682B4;
+    --carousel-item-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode styles */
+body.dark-mode {
+    --primary-bg-color: #2c3e50; /* Darker Blue-Gray for right 2/3 */
+    --secondary-bg-color: #1a242e; /* Even darker for left 1/3 */
+    --text-color: #f5f5f5; /* Light gray text */
+    --heading-color: #ecf0f1; /* Lighter headings */
+    --heading-color-light: #bdc3c7;
+    --container-bg: rgba(44, 62, 80, 0.95); /* Darker transparent containers */
+    --border-color: #444;
+    --carousel-indicator-active: #8e44ad; /* Purple */
+    --carousel-indicator-inactive: #6c7a89; /* Grayish */
+    --carousel-item-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.05), 0 4px 6px -2px rgba(255, 255, 255, 0.02);
+}
+
+
+/* Basic body styles and right background color */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-bg-color); /* Uses CSS variable */
+    color: var(--text-color); /* Uses CSS variable */
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+/* Pseudo-element for the left background color */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15%; /* Occupies the left 1/3 of the viewport */
+    height: 100vh;
+    background-color: var(--secondary-bg-color); /* Uses CSS variable */
+    z-index: -1;
+    transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+/* Pseudo-element for the accent background image */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/Crest.png'); /* Any image can be added if needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.07;
+    z-index: -2;
+}
+
+
+/* Styling for the main gradient separating line */
+#gradient-separator {
+    border: none;
+    width: 15px; /* Vertical line width */
+    height: 100vh; /* Full height */
+    /* Original gradient colors - extended for animation */
+    background: linear-gradient(to bottom, #00008B, #000000, #CC5500, #DAA520, #00008B);
+    background-size: 100% 200%; /* Make background larger than element for vertical animation */
+    background-position: 0% 0%; /* Initial position */
+    position: fixed;
+    top: 0;
+    left: 15%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: gradientMoveVertical 5s linear infinite alternate; /* 'alternate' added here */
+}
+
+/* Keyframes for vertical gradient movement */
+@keyframes gradientMoveVertical {
+    0% {
+        background-position: 0% 0%; /* Start at top */
+    }
+    100% {
+        background-position: 0% 100%; /* Move to bottom */
+    }
+}
+
+/* Header container to hold name and buttons */
+.header-container {
+    display: grid; /* Use CSS Grid for precise positioning */
+    grid-template-columns: 1fr auto 1fr; /* Flexible left, auto for name, flexible right */
+    align-items: center; /* Vertically align items in the middle of their grid row */
+    width: 100%; /* Take full width */
+    max-width: 960px; /* Limit width to contain content */
+    margin: 20px auto 0 auto; /* Top margin, auto horizontal margin to center container */
+    padding: 0 20px; /* Add some horizontal padding */
+    box-sizing: border-box; /* Include padding in width calculation */
+    background-color: transparent; /* Ensure borderless and transparent */
+    position: relative; /* For z-index */
+    z-index: 50; /* Ensure it's above background elements */
+}
+
+/* Positioning for the h1 (name) */
+.header-container h1 {
+    grid-column: 2; /* Place h1 in the second (middle) column */
+    justify-self: center; /* Center h1 horizontally within its grid cell */
+    text-align: center; /* Ensure the text itself is centered within the h1 element */
+    margin: 0; /* Remove default margins that might interfere with grid layout */
+    /* Keep original h1 styling for padding and border */
+    padding-bottom: 10px !important;
+    border-bottom: 2px solid var(--border-color) !important;
+}
+
+/* Positioning for the buttons container */
+.top-right-controls {
+    grid-column: 3; /* Place buttons in the third (rightmost) column */
+    justify-self: end; /* Align buttons to the end (right) of their grid cell */
+    display: flex; /* Keep flex for gap between individual buttons */
+    gap: 15px; /* Space between the navigation button and dark mode toggle */
+    z-index: 1000; /* Ensure it's on top of everything */
+    /* Remove any fixed positioning */
+    position: static;
+    top: auto;
+    right: auto;
+    margin-top: 0; /* Remove any previous top margin */
+}
+
+
+.nav-dropdown-container .nav-button-toggle {
+    /* Styles for the dropdown toggle button to match the original image button */
+    display: block;
+    width: 40px; /* Original width of the image button */
+    height: 40px; /* Original height of the image button */
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.nav-dropdown-container .nav-button-toggle img.nav-button-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the image fits without distortion */
+    border-radius: 5px; /* Optional: subtle rounded corners */
+}
+
+.nav-dropdown-container .nav-button-toggle:hover {
+    transform: scale(1.1); /* Subtle hover effect */
+}
+
+
+.dark-mode-toggle-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Bootstrap classes handle much of the styling */
+}
+
+/* Adjust dropdown menu appearance */
+.dropdown-menu {
+    background-color: var(--container-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--carousel-item-shadow);
+}
+
+.dropdown-item {
+    color: var(--text-color);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--secondary-bg-color); /* Steel Blue or dark equivalent on hover */
+    color: var(--primary-bg-color); /* Text color changes on hover */
+}
+
+
+/* General link styling for better clickability */
+a {
+    transition: color 0.2s ease-in-out;
+}
+
+/* --- Custom Styles for Bootstrap Integration --- */
+
+/* Custom background for the Bootstrap container */
+.custom-container-bg {
+    background-color: var(--container-bg); /* Uses CSS variable */
+    /* Z-index to ensure it sits above the gradient separator */
+    position: relative;
+    z-index: 20;
+    transition: background-color 0.3s ease; /* Smooth transition for dark mode */
+}
+
+/* Style for the introductory paragraph */
+.intro {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--text-color); /* Uses CSS variable */
+}
+
+/* Adjust heading styles to use Inter font's weights */
+h1 { /* This rule is now primarily for font and color */
+    font-weight: 700;
+    color: var(--heading-color); /* Uses CSS variable */
+    letter-spacing: 0.05em;
+    /* The positioning for h1 is handled by .header-container h1 { grid-column... } */
+    transition: color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+}
+
+h2 {
+    font-weight: 600;
+    color: var(--heading-color-light); /* Uses CSS variable */
+    letter-spacing: 0.03em;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid var(--border-color) !important; /* Uses CSS variable */
+    transition: color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+}
+
+/* Style for list items (though now carousel items are used) */
+.list-unstyled li {
+    line-height: 1.8;
+}
+
+/* Custom styling for carousel items to match original section styling */
+.carousel-item-content {
+    background-color: var(--container-bg); /* Uses CSS variable */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--carousel-item-shadow); /* Uses CSS variable */
+    border: 1px solid var(--border-color); /* Uses CSS variable */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Smooth transition */
+    text-align: center; /* Centers the text and inline elements */
+}
+
+.carousel-item-content img {
+    margin-left: auto; /* Centers the image horizontally */
+    margin-right: auto; /* Centers the image horizontally */
+    display: block; /* Important for margin: auto to work for centering block elements */
+}
+
+
+/* Ensure carousel controls are visible and well-positioned */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 1.5rem;
+}
+/* Adjust carousel indicators to be more visible */
+.carousel-indicators [data-bs-target] {
+    background-color: var(--carousel-indicator-inactive); /* Uses CSS variable */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+.carousel-indicators .active {
+    background-color: var(--carousel-indicator-active); /* Uses CSS variable */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+/* Specific styling for the "Back To Landing Page" button, as its default color might be too light */
+.btn-link.text-white {
+    color: white !important;
+    text-decoration: underline;
+}
+
+.btn-link.text-white:hover {
+    color: #ddd !important;
+}
+
+/* --- CSS FOR REVERSING CAROUSEL DIRECTION --- */
+.carousel-reverse .carousel-item-next.carousel-item-start,
+.carousel-reverse .carousel-item-prev.carousel-item-end {
+    transform: translateX(-100%);
+}
+
+.carousel-reverse .carousel-item-prev.carousel-item-start,
+.carousel-reverse .carousel-item-next.carousel-item-end {
+    transform: translateX(100%);
+}
+
+.carousel-reverse .active.carousel-item-start,
+.carousel-reverse .active.carousel-item-end {
+    transform: translateX(0);
+}
+
+.carousel-reverse .carousel-item-next,
+.carousel-reverse .carousel-item-prev,
+.carousel-reverse .active.carousel-item-start,
+.carousel-reverse .active.carousel-item-end {
+    transition: transform .6s ease-in-out;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Richard B Mayfield | Project Management & Compliance</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-container"> <h1>Richard (Rick) Mayfield</h1>
+            <div class="theme-toggle-container">
+                <span class="theme-toggle-label">Dark Mode</span>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="darkModeToggle">
+                        <input type="checkbox" id="darkModeToggle" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <h2>Certified Professional: Bridging the Gap Between Compliance and Project Excellence.</h2>
+        <hr>
+        <p class="intro-paragraph">
+            I deliver strategic results in project management, audit, accounting, and technology. Certified (CIA, CISA, PMP, PMI-ACP) and educated (BBA, MAFM). You will benefit from expertise and experience in diverse sectors: government, non-profit, and consulting. Services leverage more than 15 years of experince enhancing financial operations, managing complex audits, and driving accountability. My experience with analytical tools and regulatory knowledge optimize processes and mitigate risks. Full stack developer services also available.
+        </p>
+
+        <div class="card-container">
+            <a href="../Capstone/public/a_Skills.html" class="info-card">
+                <h3>Skills</h3>
+                <ul>
+                    <li>Quality assurance, internal controls, and reducing risk.</li>
+                    <li>Leading projects and teams, getting results, and leadership.</li>
+                    <li>Creating informed decisions and improved performance.</li>
+                </ul>
+            </a>
+            <a href="../Capstone/public/b_Services.html" class="info-card">
+                <h3>Services & Expertise</h3>
+                <ul>
+                    <li>Quality assurance, internal controls (SOC 1 and 2), and audits.</li>
+                    <li>ERM, compliance, risk management, and analytics.</li>
+                    <li>Adaptable project leader skilled in strategic planning and execution.</li>
+                </ul>
+            </a>
+            <a href="../Capstone/public/c_Projects.html" class="info-card">
+                <h3>Portfolio & Projects</h3>
+                <ul>
+                    <li>Implemented Quality Assurance Program saving $214M.</li>
+                    <li>Led $21.2M audits and other projects using various PM methods.</li>
+                    <li>Problem-Solving and technical proficiency learning Full Stack coding.</li>
+                </ul>
+            </a>
+        </div>
+
+        <hr>
+
+        <div class="footer-links">
+            <a href="./assets/files/Mayfield Richard Resume.pdf" download="Rick Mayfield's CV (PMI-ACP, PMP, CIA, CISA)">Download My Resume</a> |
+            <a href="./assets/files/Certifications.zip">Download My Certifications</a> |
+            <a href="https://ricks-dev-products.github.io/html-portifolio/">Beginner Projects</a>
+        </div>
+    </div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        const applyTheme = (theme) => {
+            body.classList.remove('dark-mode');
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            } else {
+                darkModeToggle.checked = false;
+            }
+        };
+
+        const toggleTheme = () => {
+            const newTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        };
+
+        darkModeToggle.addEventListener('change', toggleTheme);
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark ? 'dark' : 'light');
+        }
+    </script>
+</body>
+</html>
